@@ -1,86 +1,76 @@
 import React, { useState, useEffect } from 'react';
 import { shuffle } from 'lodash';
-import Data from './Data';
 import Question from './Question';
 import { Link } from 'react-router-dom';
 
 const Quiz = ({ cat, diff }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState('Loading...');
   const [score, setScore] = useState(0);
-  const [d, setD] = useState(false);
-  const [pre, setPre] = useState([]);
-  const [results, setResults] = useState('');
   const [num, setNum] = useState(0);
-  const [correct, setCorrect] = useState('');
-  const [txt, setTxt] = useState('');
-  const [qn, setQn] = useState({
-    question: '',
-    options: [],
-    category: '',
-    difficulty: '',
-  });
+  const [ques, setQues] = useState([]);
 
   useEffect(() => {
-    if (!loading) {
-      const {
-        category,
-        difficulty,
-        question,
-        correct_answer,
-        incorrect_answers,
-      } = results[num];
+    const d = async () => {
+      const { results } = await (
+        await fetch(
+          `https://opentdb.com/api.php?amount=10&category=${cat}&difficulty=${diff}&encode=url3986`
+        )
+      ).json();
 
-      setQn({
-        question,
-        options: shuffle([...incorrect_answers, correct_answer]),
-        category,
-        difficulty,
-      });
+      setQues(
+        results.map(
+          ({
+            question,
+            category,
+            difficulty,
+            correct_answer,
+            incorrect_answers,
+          }) => ({
+            question,
+            category,
+            difficulty,
+            correct: correct_answer,
+            options: shuffle([...incorrect_answers, correct_answer]),
+            txt: '',
+            disabled: false,
+            chosen: '',
+          })
+        )
+      );
 
-      setCorrect(decodeURIComponent(correct_answer));
-      setTxt('');
+      setLoading('');
+    };
+
+    d();
+  }, [cat, diff]);
+
+  const handleChange = value => {
+    const newQues = ques.slice();
+    const cor = decodeURIComponent(newQues[num].correct);
+
+    newQues[num].chosen = value;
+    newQues[num].disabled = true;
+
+    if (value === cor) {
+      newQues[num].txt = 'Correct';
+      setScore(score + 1);
+      return setQues(newQues);
     }
-  }, [num, results, loading]);
 
-  const handleChange = val => {
-    setPre(pre.concat(val));
-
-    setD(true);
-
-    if (val === correct) {
-      setTxt('Correct');
-      return setScore(score + 1);
-    }
-
-    setTxt(`Incorrect!!! The Correct Answer is ${correct}`);
+    newQues[num].txt = `Incorrect!!! The Correct Answer is ${cor}`;
+    return setQues(newQues);
   };
 
   return (
     <div>
-      <Data set={setResults} cat={cat} diff={diff} load={setLoading} />
-      <Question {...qn} event={handleChange} d={d} c={pre[num]} />
-      <p>{txt}</p>
+      <div>{loading || <Question {...ques[num]} event={handleChange} />}</div>
       <p>{score}</p>
-      <div>
-        <button
-          onClick={() => {
-            setNum(num - 1);
-            setD(true);
-          }}
-          disabled={num === 0}
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => {
-            setNum(num + 1);
-            setD(false);
-          }}
-          disabled={num === 9}
-        >
-          Next
-        </button>
-      </div>
+      <button onClick={() => setNum(num - 1)} disabled={num === 0}>
+        Previous
+      </button>
+      <button onClick={() => setNum(num + 1)} disabled={num === 9}>
+        Next
+      </button>
       <div>
         <Link to="/">
           <button>Start Over</button>
@@ -91,5 +81,3 @@ const Quiz = ({ cat, diff }) => {
 };
 
 export default Quiz;
-
-// NEEDS REFACTORING WITH DIFFERENT STATE LOGIC

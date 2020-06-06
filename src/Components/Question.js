@@ -1,34 +1,47 @@
 import React from 'react';
 
-const Radio = ({ val, name, set, d, c }) => {
+const Radio = ({ val, disabled, chosen, event }) => {
   const value = decodeURIComponent(val);
 
   return (
     <label htmlFor={value}>
       <input
-        id={value}
         type="radio"
-        name={name}
+        id={value}
         value={value}
-        onChange={() => set(value)}
-        disabled={d}
-        checked={decodeURIComponent(c) === value}
+        onChange={() => event(value)}
+        disabled={disabled}
+        checked={value === decodeURIComponent(chosen)}
       />
       {value}
     </label>
   );
 };
 
-const Question = ({ question, options, event, category, difficulty, d, c }) => (
+const Question = ({
+  question,
+  category,
+  difficulty,
+  options,
+  txt,
+  disabled,
+  chosen,
+  event,
+}) => (
   <div>
-    <h3>{decodeURIComponent(question)}</h3>
+    <h2>{decodeURIComponent(question)}</h2>
     {options.map(i => (
-      <Radio key={i} val={i} name="answers" set={event} d={d} c={c} />
+      <Radio
+        key={i}
+        val={i}
+        disabled={disabled}
+        chosen={chosen}
+        event={event}
+      />
     ))}
-    <div>
-      <p>Category: {decodeURIComponent(category)}</p>
-      <p>Difficulty: {difficulty}</p>
-    </div>
+    <p>Category: {decodeURIComponent(category)}</p>
+    <p>Difficulty: {difficulty}</p>
+    <p>{txt}</p>
   </div>
 );
 
