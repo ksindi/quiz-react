@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 
 const Quiz = ({ cat, diff }) => {
   const [loading, setLoading] = useState(true);
+  const [score, setScore] = useState(0);
+  const [d, setD] = useState(false);
+  const [pre, setPre] = useState([]);
   const [results, setResults] = useState('');
   const [num, setNum] = useState(0);
   const [correct, setCorrect] = useState('');
@@ -40,23 +43,41 @@ const Quiz = ({ cat, diff }) => {
   }, [num, results, loading]);
 
   const handleChange = val => {
-    setTxt(
-      val === correct
-        ? `Correct!!!`
-        : `InCorrect!!! The Correct answer id ${correct}`
-    );
+    setPre(pre.concat(val));
+
+    setD(true);
+
+    if (val === correct) {
+      setTxt('Correct');
+      return setScore(score + 1);
+    }
+
+    setTxt(`Incorrect!!! The Correct Answer is ${correct}`);
   };
 
   return (
     <div>
       <Data set={setResults} cat={cat} diff={diff} load={setLoading} />
-      <Question {...qn} event={handleChange} />
+      <Question {...qn} event={handleChange} d={d} c={pre[num]} />
       <p>{txt}</p>
+      <p>{score}</p>
       <div>
-        <button onClick={() => setNum(num - 1)} disabled={num === 0}>
+        <button
+          onClick={() => {
+            setNum(num - 1);
+            setD(true);
+          }}
+          disabled={num === 0}
+        >
           Previous
         </button>
-        <button onClick={() => setNum(num + 1)} disabled={num === 9}>
+        <button
+          onClick={() => {
+            setNum(num + 1);
+            setD(false);
+          }}
+          disabled={num === 9}
+        >
           Next
         </button>
       </div>
@@ -70,3 +91,5 @@ const Quiz = ({ cat, diff }) => {
 };
 
 export default Quiz;
+
+// NEEDS REFACTORING WITH DIFFERENT STATE LOGIC
