@@ -1,22 +1,22 @@
 import React from 'react';
 
-const Dropdown = ({ label, value, set, options }) => (
-  <div>
-    <label htmlFor={label}>Choose {label} </label>
+const Dropdown = ({ val, label, list, event }) => (
+  <label htmlFor={label}>
+    {label}
     <select
-      value={value}
-      name={label}
-      onChange={e => set(e.target.value)}
-      onBlur={e => set(e.target.value)}
+      value={val}
+      id={label}
+      onChange={e => event(e.target.value)}
+      onBlur={e => event(e.target.value)}
     >
       <option value="">Random</option>
-      {options.map(({ id, name }) => (
+      {list.map(({ id, name }) => (
         <option key={id} value={id}>
           {name}
         </option>
       ))}
     </select>
-  </div>
+  </label>
 );
 
 export default Dropdown;

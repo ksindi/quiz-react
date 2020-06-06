@@ -10,15 +10,15 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact>
+        <Route exact path="/">
           <Home
-            setCat={setCategory}
-            setDiff={setDifficulty}
             cat={category}
             diff={difficulty}
+            setCat={setCategory}
+            setDiff={setDifficulty}
           />
         </Route>
-        <Route path="/quiz">
+        <Route exact path="/quiz">
           <Quiz cat={category} diff={difficulty} />
         </Route>
       </Switch>

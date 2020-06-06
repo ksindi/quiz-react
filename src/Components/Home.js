@@ -3,22 +3,17 @@ import Dropdown from './Dropdown';
 import { categoryList, difficultyList } from '../utils/DropdownList';
 import { Link } from 'react-router-dom';
 
-const Home = ({ setCat, setDiff, cat, diff }) => (
+const Home = ({ cat, diff, setCat, setDiff }) => (
   <div>
     <header>
-      <h1>Welcome</h1>
+      <h2>Welcome</h2>
     </header>
+    <Dropdown val={cat} label="Category" list={categoryList} event={setCat} />
     <Dropdown
-      label="Category"
-      value={cat}
-      set={setCat}
-      options={categoryList}
-    />
-    <Dropdown
+      val={diff}
       label="Difficulty"
-      value={diff}
-      set={setDiff}
-      options={difficultyList}
+      list={difficultyList}
+      event={setDiff}
     />
     <Link to="/quiz">
       <button>Start</button>
