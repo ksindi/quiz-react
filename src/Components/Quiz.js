@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { shuffle } from 'lodash';
-import Question from './Question';
 import { Link } from 'react-router-dom';
+import Question from './Question';
+import { Button, ButtonGroup } from '@zeit-ui/react';
 
 const Quiz = ({ cat, diff }) => {
   const [loading, setLoading] = useState('Loading...');
@@ -21,13 +22,16 @@ const Quiz = ({ cat, diff }) => {
       ).json();
 
       setQues(
-        results.map(({ question, category, difficulty, correct_answer, incorrect_answers }) => ({
+        results.map(({ question, category, difficulty, correct_answer, incorrect_answers }, j) => ({
           question,
           category,
           difficulty,
           correct: correct_answer,
           options: shuffle([...incorrect_answers, correct_answer]),
+          qnNum: j,
           txt: '',
+          emo: '',
+          color: '',
           disabled: false,
           chosen: '',
         }))
@@ -47,11 +51,15 @@ const Quiz = ({ cat, diff }) => {
     newQues[num].disabled = true;
 
     if (value === cor) {
-      newQues[num].txt = 'Correct';
+      newQues[num].txt = 'Correct!!!';
+      newQues[num].emo = '✔';
+      newQues[num].color = 'green';
       setScore(score + 1);
       return setQues(newQues);
     }
 
+    newQues[num].emo = '❌';
+    newQues[num].color = 'red';
     newQues[num].txt = `Incorrect!!! The Correct Answer is ${cor}`;
     return setQues(newQues);
   };
@@ -59,16 +67,21 @@ const Quiz = ({ cat, diff }) => {
   return (
     <div>
       <div>{loading || <Question {...ques[num]} event={handleChange} />}</div>
-      <p>{score}</p>
-      <button onClick={() => setNum(num - 1)} disabled={num === 0}>
-        Previous
-      </button>
-      <button onClick={() => setNum(num + 1)} disabled={num === 9}>
-        Next
-      </button>
-      <div>
+      <ButtonGroup>
+        <Button onClick={() => setNum(num - 1)} disabled={num === 0}>
+          Previous
+        </Button>
+        <Button onClick={() => setNum(num + 1)} disabled={num === 9}>
+          Next
+        </Button>
+      </ButtonGroup>
+      <p>
+        <strong>Score: </strong>
+        {score}
+      </p>
+      <div style={{ marginTop: '50px' }}>
         <Link to="/">
-          <button>Start Over</button>
+          <Button size="large ">Start Over</Button>
         </Link>
       </div>
     </div>

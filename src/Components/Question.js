@@ -24,20 +24,19 @@ const Question = ({
   difficulty,
   options,
   txt,
+  color,
+  qnNum,
+  emo,
   disabled,
   chosen,
   event,
 }) => (
   <div>
-    <h2>{decodeURIComponent(question)}</h2>
+    <h2>
+      {qnNum + 1}. {decodeURIComponent(question)} <span style={{ color }}>{emo}</span>
+    </h2>
     {options.map(i => (
-      <Radio
-        key={i}
-        val={i}
-        disabled={disabled}
-        chosen={chosen}
-        event={event}
-      />
+      <Radio key={i} val={i} disabled={disabled} chosen={chosen} event={event} />
     ))}
     <p>Category: {decodeURIComponent(category)}</p>
     <p>Difficulty: {difficulty}</p>
