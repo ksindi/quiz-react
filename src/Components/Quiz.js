@@ -11,31 +11,26 @@ const Quiz = ({ cat, diff }) => {
 
   useEffect(() => {
     const d = async () => {
+      const categ = cat === 'Random' ? '' : cat;
+      const diffi = diff === 'Random' ? '' : diff;
+
       const { results } = await (
         await fetch(
-          `https://opentdb.com/api.php?amount=10&category=${cat}&difficulty=${diff}&encode=url3986`
+          `https://opentdb.com/api.php?amount=10&category=${categ}&difficulty=${diffi}&encode=url3986`
         )
       ).json();
 
       setQues(
-        results.map(
-          ({
-            question,
-            category,
-            difficulty,
-            correct_answer,
-            incorrect_answers,
-          }) => ({
-            question,
-            category,
-            difficulty,
-            correct: correct_answer,
-            options: shuffle([...incorrect_answers, correct_answer]),
-            txt: '',
-            disabled: false,
-            chosen: '',
-          })
-        )
+        results.map(({ question, category, difficulty, correct_answer, incorrect_answers }) => ({
+          question,
+          category,
+          difficulty,
+          correct: correct_answer,
+          options: shuffle([...incorrect_answers, correct_answer]),
+          txt: '',
+          disabled: false,
+          chosen: '',
+        }))
       );
 
       setLoading('');
