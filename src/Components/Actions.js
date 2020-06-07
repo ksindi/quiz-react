@@ -7,7 +7,7 @@ const Actions = ({ setNum, num }) => (
     <Button onClick={() => setNum(num - 1)} disabled={num === 0}>
       Previous
     </Button>
-    <Button style={{ backgroundColor: 'blue' }}>
+    <Button style={{ backgroundColor: '#0070F3' }}>
       <Link to="/" style={{ color: 'white' }}>
         Start Over
       </Link>

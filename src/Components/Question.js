@@ -37,14 +37,15 @@ const Question = ({
 }) => (
   <Card>
     <h3>
-      {qnNum + 1}. {decodeURIComponent(question)} <span style={{ color }}>{emo}</span>
+      {qnNum + 1}. <span style={{ color }}>{emo}</span> {decodeURIComponent(question)}{' '}
+      <span style={{ color }}>{emo}</span>
     </h3>
     {options.map(i => (
       <Rad key={i} val={i} disabled={disabled} chosen={chosen} event={event} />
     ))}
     <p>Category: {decodeURIComponent(category)}</p>
     <p>Difficulty: {difficulty}</p>
-    <p>{txt}</p>
+    {txt}
   </Card>
 );
 

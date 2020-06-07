@@ -57,7 +57,7 @@ const Quiz = ({ cat, diff }) => {
     newQues[num].disabled = true;
 
     if (value === cor) {
-      newQues[num].txt = 'Correct!!!';
+      newQues[num].txt = <p>Correct!!!</p>;
       newQues[num].emo = '✔';
       newQues[num].color = 'green';
       setScore(score + 1);
@@ -66,12 +66,16 @@ const Quiz = ({ cat, diff }) => {
 
     newQues[num].emo = '❌';
     newQues[num].color = 'red';
-    newQues[num].txt = `Wrong!!! The Correct Answer is ${cor}`;
+    newQues[num].txt = (
+      <p>
+        Wrong!!! The Correct Answer is <strong>{cor}</strong>
+      </p>
+    );
     return setQues(newQues);
   };
 
   return (
-    <Page>
+    <Page dotBackdrop>
       <Page.Header>
         <h2>Score: {score}</h2>
       </Page.Header>
