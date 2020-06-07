@@ -1,27 +1,21 @@
 import React from 'react';
+import { Button, ButtonGroup } from '@zeit-ui/react';
 import { Link } from 'react-router-dom';
-import { Button } from '@zeit-ui/react';
 
 const Actions = ({ setNum, num }) => (
-  <div>
-    <div>
-      <Button type="success" size="medium" onClick={() => setNum(num - 1)} disabled={num === 0}>
-        Previous
-      </Button>
-      <span> </span>
-      <Button type="success" size="medium" onClick={() => setNum(num + 1)} disabled={num === 9}>
-        Next
-      </Button>
-    </div>
-    <br />
-    <Link to="/">
-      <div>
-        <Button type="secondary" size="medium">
-          Start Over
-        </Button>
-      </div>
-    </Link>
-  </div>
+  <ButtonGroup type="success" size="medium" style={{ marginLeft: '0' }}>
+    <Button onClick={() => setNum(num - 1)} disabled={num === 0}>
+      Previous
+    </Button>
+    <Button style={{ backgroundColor: 'blue' }}>
+      <Link to="/" style={{ color: 'white' }}>
+        Start Over
+      </Link>
+    </Button>
+    <Button onClick={() => setNum(num + 1)} disabled={num === 9}>
+      Next
+    </Button>
+  </ButtonGroup>
 );
 
 export default Actions;
