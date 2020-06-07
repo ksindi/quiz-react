@@ -1,19 +1,20 @@
 import React from 'react';
+import { Radio, Card } from '@zeit-ui/react';
 
-const Radio = ({ val, disabled, chosen, event }) => {
+const Rad = ({ val, disabled, chosen, event }) => {
   const value = decodeURIComponent(val);
 
   return (
-    <label htmlFor={value}>
-      <input
-        type="radio"
+    <label htmlFor={val}>
+      <Radio
         id={value}
         value={value}
-        onChange={() => event(value)}
         disabled={disabled}
-        checked={value === decodeURIComponent(chosen)}
-      />
-      {value}
+        checked={value === chosen}
+        onChange={() => event(value)}
+      >
+        {value}
+      </Radio>
     </label>
   );
 };
@@ -31,17 +32,17 @@ const Question = ({
   chosen,
   event,
 }) => (
-  <div>
-    <h2>
+  <Card>
+    <h3>
       {qnNum + 1}. {decodeURIComponent(question)} <span style={{ color }}>{emo}</span>
-    </h2>
+    </h3>
     {options.map(i => (
-      <Radio key={i} val={i} disabled={disabled} chosen={chosen} event={event} />
+      <Rad key={i} val={i} disabled={disabled} chosen={chosen} event={event} />
     ))}
     <p>Category: {decodeURIComponent(category)}</p>
     <p>Difficulty: {difficulty}</p>
     <p>{txt}</p>
-  </div>
+  </Card>
 );
 
 export default Question;

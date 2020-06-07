@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link as Lk } from 'react-router-dom';
 import { Page, Link } from '@zeit-ui/react';
 import Home from './Home';
 import Quiz from './Quiz';
@@ -12,7 +12,9 @@ const App = () => {
     <Router>
       <Page>
         <Page.Header>
-          <h1>Quiz</h1>
+          <Lk to="/" style={{ color: 'black' }}>
+            <h1>Quiz</h1>
+          </Lk>
         </Page.Header>
         <Page.Content>
           <Switch>
