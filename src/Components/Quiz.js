@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { shuffle } from 'lodash';
-import { Link } from 'react-router-dom';
+import { Page } from '@zeit-ui/react';
 import Question from './Question';
-import { Button, ButtonGroup } from '@zeit-ui/react';
+import Actions from './Actions';
 
 const Quiz = ({ cat, diff }) => {
   const [loading, setLoading] = useState('Loading...');
@@ -17,7 +17,7 @@ const Quiz = ({ cat, diff }) => {
 
       const { results } = await (
         await fetch(
-          `https://opentdb.com/api.php?amount=10&category=${categ}&difficulty=${diffi}&encode=url3986`
+          `https://opentdb.com/api.php?amount=10&category=${categ}&difficulty=${diffi}&type=multiple&encode=url3986`
         )
       ).json();
 
@@ -71,26 +71,17 @@ const Quiz = ({ cat, diff }) => {
   };
 
   return (
-    <div>
-      <div>{loading || <Question {...ques[num]} event={handleChange} />}</div>
-      <div style={{ marginBottom: '0px' }}>
-        <ButtonGroup style={{ marginLeft: '0' }}>
-          <Button onClick={() => setNum(num - 1)} disabled={num === 0}>
-            Previous
-          </Button>
-          <Button onClick={() => setNum(num + 1)} disabled={num === 9}>
-            Next
-          </Button>
-        </ButtonGroup>
-        <p>
-          <strong>Score: </strong>
-          {score}
-        </p>
-        <Link to="/">
-          <Button size="large ">Start Over</Button>
-        </Link>
-      </div>
-    </div>
+    <Page>
+      <Page.Header>
+        <h2>Score: {score}</h2>
+      </Page.Header>
+      <Page.Content>
+        <div>{loading || <Question {...ques[num]} event={handleChange} />}</div>
+      </Page.Content>
+      <Page.Footer>
+        <Actions setNum={setNum} num={num} />
+      </Page.Footer>
+    </Page>
   );
 };
 

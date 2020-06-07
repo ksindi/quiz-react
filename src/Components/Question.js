@@ -1,21 +1,24 @@
 import React from 'react';
-import { Radio, Card } from '@zeit-ui/react';
+import { Radio, Card, Note } from '@zeit-ui/react';
 
 const Rad = ({ val, disabled, chosen, event }) => {
   const value = decodeURIComponent(val);
 
   return (
-    <label htmlFor={val}>
-      <Radio
-        id={value}
-        value={value}
-        disabled={disabled}
-        checked={value === chosen}
-        onChange={() => event(value)}
-      >
-        {value}
-      </Radio>
-    </label>
+    <Note label={false} style={{ marginTop: '10px' }}>
+      <label htmlFor={value}>
+        <Radio
+          id={value}
+          value={value}
+          disabled={disabled}
+          checked={value === chosen}
+          onChange={() => event(value)}
+          style={{}}
+        >
+          {value}
+        </Radio>
+      </label>
+    </Note>
   );
 };
 
