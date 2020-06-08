@@ -7,9 +7,7 @@ import { categoryList, difficultyList } from '../utils/DropdownList';
 const Home = ({ cat, diff, setCat, setDiff }) => (
   <Page dotBackdrop>
     <Page.Header>
-      <Link to="/" style={{ color: 'black' }}>
-        <h1>Quiz</h1>
-      </Link>
+      <h1>Quiz</h1>
     </Page.Header>
     <Page.Content>
       <h3>Select Category and Difficulty to Start</h3>
