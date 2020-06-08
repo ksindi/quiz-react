@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { shuffle } from 'lodash';
-import { Page } from '@zeit-ui/react';
 import Question from './Question';
-import Actions from './Actions';
 
-const Quiz = ({ cat, diff }) => {
+const Quiz = ({ cat, diff, num, score, setScore }) => {
   const [loading, setLoading] = useState('Loading...');
-  const [score, setScore] = useState(0);
-  const [num, setNum] = useState(0);
   const [ques, setQues] = useState([]);
 
   useEffect(() => {
@@ -74,19 +70,7 @@ const Quiz = ({ cat, diff }) => {
     return setQues(newQues);
   };
 
-  return (
-    <Page dotBackdrop>
-      <Page.Header>
-        <h2>Score: {score}</h2>
-      </Page.Header>
-      <Page.Content>
-        <div>{loading || <Question {...ques[num]} event={handleChange} />}</div>
-      </Page.Content>
-      <Page.Footer>
-        <Actions setNum={setNum} num={num} />
-      </Page.Footer>
-    </Page>
-  );
+  return <div>{loading || <Question {...ques[num]} event={handleChange} />}</div>;
 };
 
 export default Quiz;
