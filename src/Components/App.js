@@ -19,18 +19,20 @@ const App = () => {
         <CssBaseline />
         <Page dotBackdrop>
           <Page.Header>
-            <Route exact path="/">
-              <h1>Quiz</h1>
-            </Route>
-            <Route exact path="/quiz">
-              <h2>Score: {score}</h2>
-            </Route>
-            <ThemeToggle
-              handle={val => {
-                localStorage.setItem('theme', val ? 'dark' : 'light');
-                setThemeType(val ? 'dark' : 'light');
-              }}
-            />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Route exact path="/">
+                <h1>Quiz</h1>
+              </Route>
+              <Route exact path="/quiz">
+                <h1>Score: {score}</h1>
+              </Route>
+              <ThemeToggle
+                handle={val => {
+                  localStorage.setItem('theme', val ? 'dark' : 'light');
+                  setThemeType(val ? 'dark' : 'light');
+                }}
+              />
+            </div>
           </Page.Header>
           <Page.Content>
             <Route exact path="/">

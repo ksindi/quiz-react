@@ -3,18 +3,24 @@ import { Toggle } from '@zeit-ui/react';
 import { Moon, Sun } from '@zeit-ui/react-icons';
 
 const ThemeToggle = ({ handle }) => (
-  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
+  >
     <label>
       <span style={{ marginRight: '10px' }}>
-        <Sun />
+        <Sun size="20" />
       </span>
       <Toggle
-        size="large"
+        size="medium"
         onChange={e => handle(e.target.checked)}
         checked={localStorage.getItem('theme') === 'dark'}
       />
       <span style={{ marginLeft: '10px' }}>
-        <Moon />
+        <Moon size="20" />
       </span>
     </label>
   </div>
