@@ -1,5 +1,6 @@
 {
-  "name": "quiz",
+  "homepage": "http://vishnumohanrk.github.io/quiz-react",
+  "name": "quiz-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +15,8 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -41,6 +44,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.2",
+    "gh-pages": "^3.0.0",
     "prettier": "^2.0.5"
   }
 }

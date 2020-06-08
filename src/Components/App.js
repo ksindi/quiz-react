@@ -8,7 +8,7 @@ const App = () => {
   const [difficulty, setDifficulty] = useState('Random');
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path="/">
           <Home cat={category} diff={difficulty} setCat={setCategory} setDiff={setDifficulty} />
