@@ -7,17 +7,17 @@ const Actions = ({ setNum, num, setScore }) => (
     <Button onClick={() => setNum(num - 1)} disabled={num === 0}>
       Previous
     </Button>
-    <Button
-      style={{ backgroundColor: '#0070F3' }}
-      onClick={() => {
-        setScore(0);
-        setNum(0);
-      }}
-    >
-      <Link to="/" style={{ color: 'white' }}>
+    <Link to="/">
+      <Button
+        onClick={() => {
+          setScore(0);
+          setNum(0);
+        }}
+        style={{ borderRadius: '0', marginLeft: '0.06rem' }}
+      >
         Start Over
-      </Link>
-    </Button>
+      </Button>
+    </Link>
     <Button onClick={() => setNum(num + 1)} disabled={num === 9}>
       Next
     </Button>

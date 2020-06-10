@@ -39,7 +39,9 @@ const Quiz = ({ cat, diff, num, score, setScore }) => {
         return setLoading('');
       }
 
-      return setLoading("That selection doesn't have enough questions.");
+      return setLoading(
+        "That selection doesn't have enough questions. Go back and choose different combination"
+      );
     };
 
     d();

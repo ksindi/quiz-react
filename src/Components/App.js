@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ZeitProvider, CssBaseline, Page, Link as Lk } from '@zeit-ui/react';
 import Home from './Home';
 import Quiz from './Quiz';
@@ -20,12 +20,14 @@ const App = () => {
         <Page dotBackdrop>
           <Page.Header>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Route exact path="/">
-                <h1>Quiz</h1>
-              </Route>
-              <Route exact path="/quiz">
-                <h1>Score: {score}</h1>
-              </Route>
+              <Switch>
+                <Route exact path="/">
+                  <h1>Quiz</h1>
+                </Route>
+                <Route exact path="/quiz">
+                  <h1>Score: {score}</h1>
+                </Route>
+              </Switch>
               <ThemeToggle
                 handle={val => {
                   localStorage.setItem('theme', val ? 'dark' : 'light');
@@ -35,23 +37,38 @@ const App = () => {
             </div>
           </Page.Header>
           <Page.Content>
-            <Route exact path="/">
-              <Home cat={category} diff={difficulty} setCat={setCategory} setDiff={setDifficulty} />
-            </Route>
-            <Route exact path="/quiz">
-              <Quiz cat={category} diff={difficulty} num={num} setScore={setScore} score={score} />
-            </Route>
+            <Switch>
+              <Route exact path="/">
+                <Home
+                  cat={category}
+                  diff={difficulty}
+                  setCat={setCategory}
+                  setDiff={setDifficulty}
+                />
+              </Route>
+              <Route exact path="/quiz">
+                <Quiz
+                  cat={category}
+                  diff={difficulty}
+                  num={num}
+                  setScore={setScore}
+                  score={score}
+                />
+              </Route>
+            </Switch>
           </Page.Content>
           <Page.Footer>
-            <Route exact path="/">
-              Powered by{' '}
-              <Lk href="https://opentdb.com/" target="blank" icon color>
-                Open Trivia DB
-              </Lk>
-            </Route>
-            <Route exact path="/quiz">
-              <Actions setNum={setNum} num={num} setScore={setScore} />
-            </Route>
+            <Switch>
+              <Route exact path="/">
+                Powered by{' '}
+                <Lk href="https://opentdb.com/" target="blank" icon color>
+                  Open Trivia DB
+                </Lk>
+              </Route>
+              <Route exact path="/quiz">
+                <Actions setNum={setNum} num={num} setScore={setScore} />
+              </Route>
+            </Switch>
           </Page.Footer>
         </Page>
       </ZeitProvider>
